@@ -323,21 +323,21 @@
     const verificationContainer = document.getElementById("verification-container");
 
     function setupRecaptcha() {
-      window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-        'size': 'invisible',
-        'callback': function (response) {
+     // window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+        //'size': 'invisible',
+        //'callback': function (response) {
           sendOTP();
-        }
-      });
+        //}
+     //});
     }
 
     function sendOTP() {
       const countryCode = countryCodeInput.value;
       const phoneNumber = phoneNumberInput.value;
       const fullPhoneNumber = countryCode + phoneNumber;
-      const appVerifier = window.recaptchaVerifier;
+      //const appVerifier = window.recaptchaVerifier;
 
-      firebase.auth().signInWithPhoneNumber(fullPhoneNumber, appVerifier)
+      firebase.auth().signInWithPhoneNumber(fullPhoneNumber)
         .then(function (confirmationResult) {
           window.confirmationResult = confirmationResult;
           messageElement.textContent = "OTP sent!";
