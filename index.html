@@ -325,7 +325,7 @@
 
     function setupRecaptcha() {
       window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-        'size': 'invisible',
+        'size': 'visible',
         'callback': function (response) {
           sendOTP();
         }
