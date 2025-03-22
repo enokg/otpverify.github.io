@@ -298,18 +298,19 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
   <script>
-
    var firebaseConfig = {
   apiKey: "AIzaSyA-LHS2Lb4do5EISNl-_b9nNwTEj4JBoQI",
-  authDomain: "asi-interface.firebaseapp.com",
-  databaseURL: "https://asi-interface-default-rtdb.firebaseio.com",
-  projectId: "asi-interface",
-  storageBucket: "asi-interface.firebasestorage.app",
-  messagingSenderId: "983272919977",
-  appId: "1:983272919977:web:57066da3a13415cbcaaab8",
-  measurementId: "G-VR2ZD10W0K"
+    authDomain: "asi-interface.firebaseapp.com",
+    databaseURL: "https://asi-interface-default-rtdb.firebaseio.com",
+    projectId: "asi-interface",
+    storageBucket: "asi-interface.firebasestorage.app",
+    messagingSenderId: "983272919977",
+    appId: "1:983272919977:web:57066da3a13415cbcaaab8",
+    measurementId: "G-VR2ZD10W0K"
 };
-
+// Initialize Firebase
+   // const app = initializeApp(firebaseConfig);
+    //const analytics = getAnalytics(app);
 
 
     firebase.initializeApp(firebaseConfig);
@@ -323,21 +324,21 @@
     const verificationContainer = document.getElementById("verification-container");
 
     function setupRecaptcha() {
-     // window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-        //'size': 'invisible',
-        //'callback': function (response) {
+      window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+        'size': 'invisible',
+        'callback': function (response) {
           sendOTP();
-        //}
-     //});
+        }
+      });
     }
 
     function sendOTP() {
       const countryCode = countryCodeInput.value;
       const phoneNumber = phoneNumberInput.value;
       const fullPhoneNumber = countryCode + phoneNumber;
-      //const appVerifier = window.recaptchaVerifier;
+      const appVerifier = window.recaptchaVerifier;
 
-      firebase.auth().signInWithPhoneNumber(fullPhoneNumber)
+      firebase.auth().signInWithPhoneNumber(fullPhoneNumber, appVerifier)
         .then(function (confirmationResult) {
           window.confirmationResult = confirmationResult;
           messageElement.textContent = "OTP sent!";
